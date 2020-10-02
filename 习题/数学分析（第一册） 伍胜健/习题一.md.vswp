@@ -1,0 +1,52 @@
+vnote_backup_file_826537664 D:/Document/notebook/习题/数学分析（第一册） 伍胜健/习题一.md
+# 习题一
+1.$A \cup B=\{1,2,3,4,6,8,9\} ,A \cap B=\{1\},A-B=\{2,4,8\}$
+
+2.$A \cup B=\mathbb{N},A \cap B=\varnothing,A-B=A,B-A=B$
+
+3.$\bigcup^{+\infty}_{n=1}A_n=(-1,1)$
+
+4.$\bigcap^{+infty}_{n=1}B_n=[-1,1]$
+
+5.
+(1) $\forall a \in X$，总是 $\exists b \in X ,st. |b| \ge |a|$
+(2)证：$\forall n \in \mathbb{N},\sin(\frac{n\pi}{2})=\sin(\frac{(n+4)\pi}{2})$，故因为 $n < n+4$ ，所以 $n\sin(\frac{n\pi}{2})\le(n+4)\sin(\frac{(n+4)\pi}{2})$，且当 $n=4k+1,k \in \mathbb{N}$ 时，原式 $=n$发散，故 $A$ 是无界集合。
+
+6.
+(1).设 $a_n=[1+(-1)^{n}]\frac{n+1}{n},(n \in \mathbb{N})$，分情况讨论
+(i) n 为奇数，此时 $a_n=0$
+(ii) n 为偶数，此时 $a_n=\frac{2(n+1)}{n}$
+设 $b_n=\frac{n+1}{n}$，则 $\frac{b_n}{b_{n+1}}=\frac{n+1}{n} \times \frac{n+1}{n+2}=\frac{n^2+2n+1}{n^2+2n}=1+\frac{1}{n^2+2n}>1$，故有 $b_n>b_{n+1}$，也即 $a_n>a_{n+1}$，故 $a_n \le a_2=3$
+综上 $\sup E=3,\inf E=0$
+(2).$\sup E=1,\inf E=0$
+(3).设 $a_n=\sqrt[n]{1+2^{n(-1)^n}}$，分情况讨论
+(i).$n$ 为奇数时，$a_n=\sqrt[n]{1+\frac{1}{2^n}}$，此时易知 $a_n > a_{n+2}$，固有 $a_n \le a_1=\frac{3}{2}$
+(ii) $n$ 为偶数时， $a_n=\sqrt[n]{1+2^n}$，$\frac{a_n}{a_{n+2}}=\frac{(1+2^n)^{1/n}}{(1+2^{n+2})^{1/(n+2)}} \ge \frac{(1+2^n)^{1/n}}{(1+2^n)^{1/(n+2)}}=(1+2^n)^{\frac{1}{n}-\frac{1}{n+2}} >1$，所以 $a_n >a_{n+2}$，$a_n \le a_2=\sqrt{5}$
+又易知当 $n \to \infty$ 时 $a _n \to 1$
+综上所述 $\sup E=\sqrt{5},\inf E=1$
+(4).$E=[0,1),\sup E=1,\inf E=0$
+
+7.证：设 $p=\sup A+\sup B$，由于 $\forall a \in A,a \le \sup A$ 并且对于 $\forall b \in B,b \le \sup B$，所以 $a+b \le \sup A+\sup B=p$，也即 $\forall c \in C,c \le p$ ，故 $p$ 为 $C$ 的上界。
+现在证明 $p$ 为 $C$ 的上确界。假设 $p$ 不是 $C$ 的上确界，则 $\exists \varepsilon >0, st. q=p-\varepsilon$ 为 $C$ 的上界，则有 $q\le \sup A+\sup B-\varepsilon$，则一定 $\exists a \in A,b \in B ,st. a+b>q$，故 $q$ 不可能是 $C$ 的上界。所以 $p$ 是 $C$ 的上确界。
+
+8.
+
+$$y=\left\{\begin{aligned} 
+\lbrack x \rbrack && x-[x] < 0.5 \\ 
+[x]+1 && x-[x] \ge 0.5
+\end{aligned}\right.$$
+
+9.
+
+$$y=\left\{\begin{aligned}
+10 && 0 < x \le 3 \\
+2x+4 && 3 < x\le 10 \\
+3x-6 && x > 10
+\end{aligned}\right.$$
+
+10.证：注意到 $f(0)=b,f(1)=b+1+a,f(-1)=b+1-a$
+(i).$|b|\ge\frac{1}{2}$ 时，满足题意
+(ii) $|b| < \frac{1}{2}$ 时，即 $b \in (-\frac{1}{2},\frac{1}{2})$，则 $b+1 \in (\frac{1}{2},\frac{3}{2})$
+当 $a \in [-\frac{1}{2},+\infty)$ 时，$|f(1)|=|b+1+a| \ge \frac{1}{2}$；
+当 $a \in (-\infty,-\frac{1}{2})$ 时，$|f(-1)|=|b+1-a| \le \frac{1}{2}$
+故原不等式成立
