@@ -1,0 +1,24 @@
+{
+    "navigation":
+    [
+        {
+            "text": "Home",
+            "target": "index.md",
+            "toc": false
+        },
+        {
+            "text": "notebook",
+            "target": "_vnote.json",
+            "navi": true,
+            "navi_index": "welcome.md"
+        }
+    ],
+    "actions":
+    [
+        {
+            "text": "Viki",
+            "icon": "css/viki_white.svg",
+            "target": "https://tamlok.github.io/viki/"
+        }
+    ]
+}

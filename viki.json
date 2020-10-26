@@ -1,0 +1,21 @@
+{
+    "brand": "viki",
+    "title": "SYCstudio online notebook - based on Viki",
+    "favicon": "./logo.png",
+    "footer": "",
+    "show_suffix": false,
+    "load_before_search": true,
+    "fuzzy_search": false,
+    "markdown":
+    {
+        "html": true,
+        "breaks": false,
+        "linkify": false,
+        "typographer": false,
+        "lang_prefix": "lang-",
+        "image_caption": true,
+        "plantuml_server": "https://www.plantuml.com/plantuml",
+        "plantuml_format": "svg",
+        "code_block_line_number": false
+    }
+}
