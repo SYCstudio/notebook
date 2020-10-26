@@ -10,7 +10,8 @@
 
 sycstudio，北京大学 2020 级信息科学技术学院本科生
 
-欢迎来到 sycstudio 的 Vnote 笔记镜像，。  
+欢迎来到 sycstudio 的 Vnote 笔记镜像。
+对于高中时期关于 OI 相关的笔记和文章，请访问 [OI](https://oi.sycstudio.com)  
 感谢 @[tamlok](https://github.com/tamlok) 开发的 [Vnote](https://github.com/tamlok/vnote/) 和 [Viki](https://github.com/tamlok/viki)。现在你看到的所有页面均是用 Vnote 写作，基于 Viki 生成的。
 
 另：如果你发现了任何错误，不论是内容上的还是网站结构上的，欢迎通过上面的任意一种方式联系我，或者在 Github 上提 Issue 。
