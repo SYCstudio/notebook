@@ -23,6 +23,9 @@
         }
     ],
     "sub_directories": [
+        {
+            "name": "Java"
+        }
     ],
     "version": "1"
 }
