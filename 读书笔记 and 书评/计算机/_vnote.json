@@ -1,16 +1,6 @@
 {
-    "created_time": "2020-09-28T14:46:11Z",
+    "created_time": "2021-04-16T08:50:39Z",
     "files": [
-        {
-            "attachment_folder": "",
-            "attachments": [
-            ],
-            "created_time": "2020-11-04T05:36:31Z",
-            "modified_time": "2020-11-04T05:41:20Z",
-            "name": "什么是数学.md",
-            "tags": [
-            ]
-        },
         {
             "attachment_folder": "",
             "attachments": [
@@ -25,9 +15,6 @@
     "sub_directories": [
         {
             "name": "Java"
-        },
-        {
-            "name": "物理"
         }
     ],
     "version": "1"
