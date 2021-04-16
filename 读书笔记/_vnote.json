@@ -25,6 +25,9 @@
     "sub_directories": [
         {
             "name": "Java"
+        },
+        {
+            "name": "物理"
         }
     ],
     "version": "1"
