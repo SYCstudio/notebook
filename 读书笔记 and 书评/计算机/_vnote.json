@@ -15,6 +15,9 @@
     "sub_directories": [
         {
             "name": "Java"
+        },
+        {
+            "name": "Python"
         }
     ],
     "version": "1"
