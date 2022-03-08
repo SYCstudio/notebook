@@ -33,6 +33,7 @@ RISC-V CPU 提供了若干关于 trap 的控制寄存器，下面是其中比较
 从高层次描述来自 user space 的 trap 是这样的：陷入 trap 的时候先后经过 `uservec` 和 `usertrap`，而返回的时候依次经过 `usertrapret` 和 `userret`。  
 从用户空间陷入 trap 是更具有挑战的。由于 RISC-V 硬件并不会切换页表，所以用户页表必须包含 `uservec` 的映射，其中包括了 `stvec` 应该指向的陷阱指令向量。`uservec` 必须切换 `satp` 指向内核页表，而为了保证在切换前后指令能连续执行，这要求 `uservec` 在用户空间和内核空间指向同样的位置。  
 xv6 使用 `trampline page` 来满足上述要求。这一 `trampline page` 中包含了 `uservec` ，并且 xv6 将这一页面映射到内核和所有用户的虚拟地址空间的同一位置。  
+用户使用命令 `ecall` 走到 `trampline page`。具体来说，`ecall` 做了三件事情：第一是将 user mode 切换到 supervisor mode；第二是将原来的程序计数器保存到寄存器 `SEPC`；第三是跳转到寄存器 `STVEC` 指向的指令地址，这个寄存器的内容是由内核设置好的，恰好就是 trampline page 的地址。
 当 `uservec` 开始运行后，需要将所有的 32 个寄存器的信息保存并记录保存的地址。RISC-V 提供了 `sscratch` 这一寄存器来帮助这一动作，使用指令 `csrrw` 交换 `sscratch` 和 `a0` 两个寄存器的内容，而在进入用户空间前，内核就已经提前将 `sscratch` 的内容指向一个每个进程都独有一份的 `trapframe` 页面，然后 `a0` 就可以作为地址指针保存所有的寄存器信息到 `trapframe` 中。进程的 `p->trapframe`也指向这一页面，不过是基于物理地址的，以方便内核访问其中的内容。随后 `uservec` 切换 `satp` 为内核页表，控制流进入 `usertrap`。  
 `usertrap` 根据引发 trap 的原因来分别进行处理，比如系统调用 system call，硬件中断 devintr，或是异常，最后一种情况时内核会直接杀死用户进程。  
 随后开始返回过程。首先是 `usertrapret`，这一过程准备 RISC-V 控制寄存器，为之后的用户 trap 作准备。然后控制流进入 `userret` 恢复进程上下文以及页表。
