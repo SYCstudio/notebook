@@ -43,6 +43,9 @@
         },
         {
             "name": "Rust 程序设计"
+        },
+        {
+            "name": "DPDK"
         }
     ],
     "version": "1"
