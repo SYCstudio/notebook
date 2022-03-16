@@ -50,6 +50,16 @@
             "name": "Chapter 5 Interrupts and device drivers.md",
             "tags": [
             ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2022-03-16T10:15:48Z",
+            "modified_time": "2022-03-16T11:49:46Z",
+            "name": "Chapter 6 Locking.md",
+            "tags": [
+            ]
         }
     ],
     "sub_directories": [
