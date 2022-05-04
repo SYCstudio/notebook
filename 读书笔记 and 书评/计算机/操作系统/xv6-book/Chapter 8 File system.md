@@ -14,4 +14,43 @@ xv6 的文件系统实现由以下 7 层组成。
 
 ![](_v_images/20220503164838786_3172.png)
 
-其中，每层的功能分工如下：Disk 层在 virtio hard drive 上读写块数据
+其中，每层的功能分工如下：
+
+* Disk 层在 virtio hard drive 上读写块数据
+* buffer cache 层对磁盘块建立缓存，并对所有访问磁盘的操作进行同步，保证在任意时刻仅有一个内核进程能修改某一个特定块的数据
+* logging 层为更高的层级提供对一组 update 打包成一个 transaction 的功能，保证所有的操作都是原子化的，防止崩溃引发问题
+* inode 层为每一个文件提供了独有的 inode number 以及保存文件数据的若干块位置
+* directory 层将每一个文件夹组织成一个特殊的 inode，由若干条目组成，每一个条目包括一个 i-number 和文件的名字
+* pathname 层将文件夹组织为层级结构，并通过递归的方式来索引路径
+* file descriptor 层将若干 unix 资源（如管道 pipe, device 设备）在文件系统上抽象。
+
+xv6 的文件系统将磁盘分成了下面几个部分，划分的最小单位为块 block。
+
+![](_v_images/20220504131054637_15605.png)
+
+* block0 通常用于启动操作系统，文件系统不会使用这部分的数据。
+* block1 被称为 superblock，存储文件系统的元数据 metadata ，包括块的大小、数据块的个数、inode 的个数，log 中块的数量。这部分还包括一个被称为 mkfs 的程序，用于构建一个初始的文件系统。
+* bit map 标记后面的每一个 data block 是否已经被占用。
+
+## Buffer cache layer
+这一层要做的工作有两个：其一是同步对磁盘块的访问，保证内存中每个块的拷贝都是唯一的，并且一次只能有一个内核进程访问这个拷贝；其二是将频繁访问的块缓存到内存中。  
+buffer cache 提供的最主要的两个接口是 `bread` 和 `bwrite`，前者持有一个包括若干块的拷贝的 buf，可以在内存中读写；后者将合适的被修改的块写回到磁盘上。当内核使用完一个 buffer 后，必须显式的通过 `brelse` 来释放。buffer cache 对每一个 buf 都维护了一个 sleep lock 以保证访问的互斥性。  
+buffer cache 中 buffer 的数量是有限的，这意味着如果文件系统要求一个当前不在缓冲区内的块时，它必须选择回收一个当前持有着另一个块的 buffer。xv6 使用的调度算法是 LRU(least recently used)。  
+在实现上，buffer cache 基于一个双向链表，
+
+## Logging layer
+这一层主要用于解决崩溃恢复的问题。xv6 使用了一种简单的日志 log 的形式，即 xv6 的系统调用不会直接操作磁盘上的文件系统数据结构，而是将它想要执行的操作描述在 log 中；操作系统将所有需要做的事情全部记录好之后，它再写入一个特殊的 commit 表明 log 中已经包括了完整的操作步骤。然后，才会将数据修改进相关的结构中。当所有的写都完成后，log 会被清空，以等待进行下一次的操作。  
+如果系统崩溃发生，重启后，文件系统会运行恢复程序。恢复程序首先检查 log。如果 log 是完整的，那么就执行其中的操作；否则是不完整的，那么就忽略其中的任何内容。当需要的操作执行完后，恢复程序清空 log，然后交回控制流。
+
+## Log design
+log 在磁盘中的位置是固定的，它一般由一个 header block 和一系列 logged blocks 组成。header block 包括一个指明每一个 logged blocks 的数组，以及包括的 logged blocks 的数量 count，这个数量如果是 0 则说明这个 log 中没有需要操作的动作，否则就表明有一个完整的操作序列。xv6 保证只有在将所有动作写入 log 后才会更新 count 的值，以确保恢复的原子性。  
+为了同时满足多个进程对文件系统的读写，log 系统可以将来自不同进程的磁盘操作聚合，这意味着一次 commit 可能包括若干个 system call。同时，为防止同一个 system call 的操作被拆分到多个 commit 中，log 系统仅在当前没有 system call 的时候才进行 commit 。  
+将多个 transaction 打包一起 commit 的方法即是 group commit 。这一方法能有效降低读写花费，因为一些固定的时间消耗被均摊给每一个原来的 transaction 了。  
+xv6 中 log 的大小是有限的，这意味着系统调用操作使用的空间不能超过提供的 log 的大小。有两种情况可能会涉及到对大量块的写，一种是大文件的写操作，另一种是 unlink 操作。对于前者，xv6 的 write 系统调用会将大文件的写拆分成几个小的写操作，以适应 log 的大小限制；对于后者，对一个大文件进行 unlink 操作可能会涉及到修改许多的 bitmap 和一个 inode，不过由于 xv6 的设计中只有一个 bitmap 块，所以一般这不会成为问题。
+
+## Block allocator
+文件和目录结构都是存储在磁盘块中的，为此我们也需要一个用于分配和管理块的 block allocator。  
+xv6 的 block allocator 在磁盘上管理着一个标记是否空闲的 bitmap。mkfs 程序就是初始化其中与预先需要使用到的 block0, block1, log, inode,bitmap 等相关的块的信息。  
+这一结构提供了两个函数 `balloc` 和 `bfree` 用于分配和回收块。为防止出现竞争情况，任意时刻仅允许最多一个进程使用 bitmap，但是由于 buffer cache 已经保证了这一点，所以这里并不需要加锁保护。
+
+## Inode layer
