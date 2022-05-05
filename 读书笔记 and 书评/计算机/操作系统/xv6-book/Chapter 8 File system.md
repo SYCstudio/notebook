@@ -54,3 +54,37 @@ xv6 的 block allocator 在磁盘上管理着一个标记是否空闲的 bitmap�
 这一结构提供了两个函数 `balloc` 和 `bfree` 用于分配和回收块。为防止出现竞争情况，任意时刻仅允许最多一个进程使用 bitmap，但是由于 buffer cache 已经保证了这一点，所以这里并不需要加锁保护。
 
 ## Inode layer
+在 xv6 的语境中，inode 有两个意思。一是指磁盘上的包含一个文件的大小以及数据块信息的编号 on-disk inode，二是指前一结构在内存中的拷贝以及内核所需要的其它信息。  
+对于 on-disk inode，一般会包装成磁盘上连续的 inode blocks。每一个 inode 大小是固定的，并且有一个唯一的 i-number 来标记。这一结构在 `struct dinode` 中定义，其中的 type 指明这个 inode 是文件 file、目录 directory 还是特殊文件（比如设备 device）。当 type 为 0 时说明这个 inode 为空。nlink 记录这个 inode 被多少目录项引用，以便于判断这个 inode 以及其关联的文件数据块是否可以被释放。size 记录这个文件中包含的内容的大小。addr 记录包含文件内容的块的编号。  
+内核会将活跃的 inode 保留在内存中，结构 `struct inode` 是上文所述 `dinode` 在内存中的拷贝。当且仅当有 C 指针引用了某个 inode 时，内核才会将 inode 保存在内存中。一旦引用数为 0 ，内核就会将其从内存中清理出去。使用 `iget` 和 `iput` 两个函数来维护指针对 inode 引用的计数。`iget` 返回一个 `inode` 指针，并且保证在执行相关的 `iput` 之前，这一指针始终是合法的。任何代码都可以同时合法地访问 `iget` 返回地这一 `inode` 指针，所以可能同时有多个指针指向同一个 inode。 `iget` 返回的指针可能并不包含有效内容（ `valid==0`），所以需要用`ilock`从磁盘中读取内容。一个典型的调用过程如下：
+
+```c
+ip = iget(dev, inum);
+ilock(ip);
+...examine and modify ip->xxx
+iunlock(ip);
+iput(ip);
+```
+
+inode cache 的主要工作是将不同进程对 inode 的访问同步，cache 功能反而是排在其后的。值得指出的是，inode cache 是直写 write-through 的，即任何时刻 inode cache 中的内容被修改都会立刻通过 `iupdate` 写入到磁盘中。
+
+dinode 结构中，对文件块的存储如下：
+
+![](_v_images/20220505143052709_27570.png)
+
+其中在 inode 本结构体中就存储了 NDIRECT 块数据的地址，这部分被称为 direct block；剩下的通过 indirect 连接到一个外部块，这个块中能够存储 256 个数据块的地址，这部分被称为 indirect block。bmap() 函数为操作这些块提供了一个更高层的抽象，它负责获取 inode 中第 n 块的地址：当 $bn < NDIRECT$ 时，直接返回 `ip->addr[bn]`，若不存在则使用 `balloc` 分配一个；否则就通过间接查询的方式跳转到 `indirect block` 查询。
+
+## Directory layer
+在内部实现上，一个目录 directory 与文件是相似的，它的 inode type 是 T_DIR，它的数据则是若干目录条目 directory entries。每一个条目都是一个 `struct dirent`，其中包括文件名和 inode 编号
+
+## File descriptor layer
+unix 标准的一大特征是，大部分的 unix 资源都是用文件表示的，filee descriptor layer 是实现这一功能的主要 layer。xv6 为每一个进程准备了独有的已打开文件的表格，或者说文件描述符表。这些内容保存在 `struct file` 中，每一次调用 open 时就会创建一个新的结构。如果有多个进程同时独立地打开同一个文件，就会创建不同的独立的实例，每一个都拥有独立的读写偏移。另一方面，一个单独的 open file（即同一个 struct file）可以出现在一个或多个进程的文件表中多次（如使用 dup，或者 fork 出子进程共享）。文件可以被打开为读、写或同时读写，这一标记由 `readable` 和 `writeable` 维护。  
+系统中所有被打开的文件都会在全局文件描述符表 `ftable` 中标记。
+
+##  Real world
+现代操作系统的 buffer cache 比 xv6 中更加复杂，但提供的也是同样了两个功能：访问同步和缓存 cache。xv6 的 buffer cache 使用了简单的 LRU 替换规则，真实世界的操作系统通常则会使用更复杂的调度方式，以获得更好的效率和公平性。  
+xv6 的 logging 系统也是低效的，比如它不能在有 system call 的同时进行 commit，另外需要对整个块进行 log （即使只有少量 bit 被修改了）。现代操作系统在这些方面都有所改进。  
+log 系统并不是让系统支持错误恢复的唯一方式。早期的文件系统使用了线性扫描的方式（比如 unix 中的 fsck 程序），在重启的时候扫描所有的文件、目录和 block, inode 的空闲链表，发现任何不一致的地方，然后尝试进行修复。这一方法的问题在于，扫描较大的文件需要花费大量时间，并且不是所有的问题都能得到修复。与之相比，使用 log 的方式进行系统恢复速度更快，而且由于保证了操作的原子性，错误一般都是可以修复的。  
+xv6 对于磁盘错误的处理很简单，如果磁盘出现错误，xv6 会直接进入 panic。现代操作系统会更精细地实现这一部分，以保证当磁盘失效的时候，系统的其它部分仍然能正常使用。  
+xv6 的文件系统仅能在单磁盘上操作，并且要求其容量不能发生变化。现代操作系统在这一方面也做了很多改进，比如使用 RAID 技术，或者支持文件系统的扩容或缩减。这是使用固定大小 inode 的 xv6 不能做到的。  
+xv6 的文件系统还缺少很多现代操作系统文件系统的特性，比如快照 snapshot 和增量式备份 incremental backup。
