@@ -46,3 +46,15 @@ parser.add_argument("-g", "--gui", action="store_true", help="show gui(default: 
 parser.add_argument("-s", "--save_model", help="save model(default: false)", dest="interval", type=int)
 parser.add_argument("-l", "--load_model", help="load model from file", dest="filename")
 ```
+
+## Rich 库
+提供颜色化的终端输出
+
+其中 rich.progress 中的 track 可以提供进度条
+
+[主页](https://rich.readthedocs.io/en/stable/introduction.html)
+
+## tqdm 库
+提供简单的进度条功能
+
+[参考](https://zhuanlan.zhihu.com/p/163613814)
