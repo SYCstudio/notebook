@@ -1,0 +1,28 @@
+{
+    "created_time": "2022-09-10T07:01:38Z",
+    "files": [
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2022-09-10T07:02:16Z",
+            "modified_time": "2022-09-10T08:44:42Z",
+            "name": "第1章 计算机抽象及相关技术.md",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "attachments": [
+            ],
+            "created_time": "2022-09-10T08:49:43Z",
+            "modified_time": "2022-09-11T08:59:03Z",
+            "name": "第2章 指令：计算机的语言.md",
+            "tags": [
+            ]
+        }
+    ],
+    "sub_directories": [
+    ],
+    "version": "1"
+}
