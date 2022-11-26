@@ -3,16 +3,19 @@
     "files": [
         {
             "attachment_folder": "",
-            "attachments": [
-            ],
             "created_time": "2020-10-19T00:22:09Z",
-            "modified_time": "2020-10-19T12:25:13Z",
+            "id": "12",
+            "modified_time": "2020-10-19T00:22:09Z",
             "name": "1.3.2 练习题.md",
+            "signature": "120883523988980",
             "tags": [
             ]
         }
     ],
-    "sub_directories": [
+    "folders": [
     ],
-    "version": "1"
+    "id": "11",
+    "modified_time": "2022-11-26T06:11:00Z",
+    "signature": "24504457866740",
+    "version": 3
 }

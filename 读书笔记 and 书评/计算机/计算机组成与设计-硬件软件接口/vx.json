@@ -3,56 +3,59 @@
     "files": [
         {
             "attachment_folder": "",
-            "attachments": [
-            ],
             "created_time": "2022-09-10T07:02:16Z",
-            "modified_time": "2022-09-10T08:44:42Z",
+            "id": "86",
+            "modified_time": "2022-09-10T07:02:16Z",
             "name": "第1章 计算机抽象及相关技术.md",
+            "signature": "50854082227700",
             "tags": [
             ]
         },
         {
             "attachment_folder": "",
-            "attachments": [
-            ],
             "created_time": "2022-09-10T08:49:43Z",
-            "modified_time": "2022-09-12T09:24:17Z",
+            "id": "87",
+            "modified_time": "2022-09-10T08:49:43Z",
             "name": "第2章 指令：计算机的语言.md",
+            "signature": "21330477034996",
             "tags": [
             ]
         },
         {
             "attachment_folder": "",
-            "attachments": [
-            ],
             "created_time": "2022-09-14T06:21:52Z",
-            "modified_time": "2022-09-14T08:20:18Z",
+            "id": "88",
+            "modified_time": "2022-09-14T06:21:52Z",
             "name": "第3章 计算机的算术运算.md",
+            "signature": "31681348218356",
             "tags": [
             ]
         },
         {
             "attachment_folder": "",
-            "attachments": [
-            ],
             "created_time": "2022-09-15T10:50:56Z",
-            "modified_time": "2022-09-22T14:39:30Z",
+            "id": "89",
+            "modified_time": "2022-09-15T10:50:56Z",
             "name": "第4章 处理器.md",
+            "signature": "59834858843636",
             "tags": [
             ]
         },
         {
             "attachment_folder": "",
-            "attachments": [
-            ],
             "created_time": "2022-09-26T06:57:03Z",
-            "modified_time": "2022-09-29T06:47:49Z",
+            "id": "90",
+            "modified_time": "2022-09-26T06:57:03Z",
             "name": "第5章 大而快：层次化存储.md",
+            "signature": "112993669066228",
             "tags": [
             ]
         }
     ],
-    "sub_directories": [
+    "folders": [
     ],
-    "version": "1"
+    "id": "85",
+    "modified_time": "2022-11-26T06:11:00Z",
+    "signature": "80558076046836",
+    "version": 3
 }

@@ -3,26 +3,29 @@
     "files": [
         {
             "attachment_folder": "",
-            "attachments": [
-            ],
             "created_time": "2022-01-03T03:38:01Z",
-            "modified_time": "2022-01-11T08:04:14Z",
+            "id": "55",
+            "modified_time": "2022-01-03T03:38:01Z",
             "name": "第1章 构造过程抽象.md",
+            "signature": "86059929153012",
             "tags": [
             ]
         },
         {
             "attachment_folder": "",
-            "attachments": [
-            ],
             "created_time": "2022-01-19T12:50:06Z",
-            "modified_time": "2022-01-20T14:54:48Z",
+            "id": "56",
+            "modified_time": "2022-01-19T12:50:06Z",
             "name": "第2章 构造数据抽象.md",
+            "signature": "55230653902324",
             "tags": [
             ]
         }
     ],
-    "sub_directories": [
+    "folders": [
     ],
-    "version": "1"
+    "id": "54",
+    "modified_time": "2022-11-26T06:11:00Z",
+    "signature": "140691913158132",
+    "version": 3
 }

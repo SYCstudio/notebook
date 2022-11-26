@@ -2,10 +2,13 @@
     "created_time": "2022-03-17T00:24:11Z",
     "files": [
     ],
-    "sub_directories": [
+    "folders": [
         {
             "name": "并行程序设计：概念及实践"
         }
     ],
-    "version": "1"
+    "id": "82",
+    "modified_time": "2022-11-26T06:11:00Z",
+    "signature": "54217041620468",
+    "version": 3
 }

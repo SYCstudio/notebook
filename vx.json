@@ -1,11 +1,8 @@
 {
-    "attachment_folder": "_v_attachments",
-    "created_time": "2020-09-28T14:38:37Z",
+    "created_time": "2022-11-26T06:11:00Z",
     "files": [
     ],
-    "image_folder": "",
-    "recycle_bin_folder": "_v_recycle_bin",
-    "sub_directories": [
+    "folders": [
         {
             "name": "习题"
         },
@@ -19,7 +16,8 @@
             "name": "课堂笔记"
         }
     ],
-    "tags": [
-    ],
-    "version": "1"
+    "id": "1",
+    "modified_time": "2022-11-26T06:11:00Z",
+    "signature": "177763102196",
+    "version": 3
 }

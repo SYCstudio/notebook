@@ -2,7 +2,7 @@
     "created_time": "2020-09-28T14:46:01Z",
     "files": [
     ],
-    "sub_directories": [
+    "folders": [
         {
             "name": "数学分析（第一册） 伍胜健"
         },
@@ -22,5 +22,8 @@
             "name": "数字逻辑设计"
         }
     ],
-    "version": "1"
+    "id": "2",
+    "modified_time": "2022-11-26T06:11:00Z",
+    "signature": "79316830498292",
+    "version": 3
 }

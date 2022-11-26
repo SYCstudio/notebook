@@ -3,19 +3,16 @@
     "files": [
         {
             "attachment_folder": "20220107215143506_21234",
-            "attachments": [
-                {
-                    "name": "doc.pdf"
-                }
-            ],
             "created_time": "2021-04-16T08:50:08Z",
-            "modified_time": "2022-10-31T09:55:12Z",
+            "id": "104",
+            "modified_time": "2021-04-16T08:50:08Z",
             "name": "书评.md",
+            "signature": "127381809507828",
             "tags": [
             ]
         }
     ],
-    "sub_directories": [
+    "folders": [
         {
             "name": "物理"
         },
@@ -29,5 +26,8 @@
             "name": "paper"
         }
     ],
-    "version": "1"
+    "id": "31",
+    "modified_time": "2022-11-26T06:11:00Z",
+    "signature": "23396356304372",
+    "version": 3
 }

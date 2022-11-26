@@ -2,10 +2,13 @@
     "created_time": "2022-09-11T12:24:23Z",
     "files": [
     ],
-    "sub_directories": [
+    "folders": [
         {
             "name": "广告学概论"
         }
     ],
-    "version": "1"
+    "id": "108",
+    "modified_time": "2022-11-26T06:11:00Z",
+    "signature": "9905864027636",
+    "version": 3
 }
