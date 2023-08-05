@@ -20,5 +20,8 @@ tlmgr 自更新：`tlmgr update --self --all`
 
 将字体安装到 /usr/share/font 目录下，然后使用 `mkfontscale`,`mkfontdir`,`fc-cache -fv` 刷新（需要包 `ttf-mscorefonts-installer` 和 `fontconfig`
 
-安装支持 minted 包的 pygments：`python3-pygments
-`
+安装支持 minted 包的 pygments：`python3-pygments`
+
+## OCI 问题
+装回了 stable 版本，但似乎 OCI 遇到了一些问题。  
+默认的 `containernetworking-plugins` 包版本过低，需要到 `http://archive.ubuntu.com/ubuntu/pool/universe/g/golang-github-containernetworking-plugins/` 下载 `containernetworking-plugins_1.1.1+ds1-1_amd64.deb` ，手动通过 `dpkg` 安装。
