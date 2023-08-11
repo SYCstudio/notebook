@@ -10,7 +10,7 @@ def tojpg(path):
             f, e = os.path.splitext(Uri)
             outfile = f + '.jpg'
             # print(e)
-            if f != outfile and e != '.jpg':
+            if f != outfile and e == '.png':
                 try:
                     print(f)
                     print(outfile)
