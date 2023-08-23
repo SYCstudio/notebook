@@ -2,9 +2,10 @@
 
 ![](gravatar.png)
 
-[Github](https://github.com/SYCstudio) | [Cnblogs](https://sycstudio.cnblogs.com)  
-[Luogu](https://www.luogu.org/space/show?uid=11989) | [BZOJ](https://www.lydsy.com/JudgeOnline/userinfo.php?user=SYCstudio) | [UOJ](http://uoj.ac/user/profile/SYCstudio) | [LOJ](https://loj.ac/user/1480) | [Codeforces](http://codeforces.com/profile/SYCstudio) | [Atcoder](https://atcoder.jp/users/SYCstudio)  
-`QQ:1726016246` | `sycstudio@qq.com` | `sycstudiosyc@gmail.com` | `sycstudio@yandex.com`
+[Github](https://github.com/SYCstudio) | [IEEE](https://ieeexplore.ieee.org/author/37089924474) | [Google Scholar](https://scholar.google.com/citations?user=d-3rxrIAAAAJ)   
+[UOJ](http://uoj.ac/user/profile/SYCstudio) | [LOJ](https://loj.ac/user/1480) | [Codeforces](http://codeforces.com/profile/SYCstudio) | [Atcoder](https://atcoder.jp/users/SYCstudio)    
+[bilibili](https://space.bilibili.com/16392626) | [twitter](https://twitter.com/sycstudio1) | [pixiv](https://www.pixiv.net/users/24728784)  
+`sycstudiosyc at gmail.com` | `sycstudio at yandex.com` | `songyuchen at yuch.io` | `songyuchen at sycstudio.com` | `songyuchen at stu.pku.edu.cn`  
 
 > 过去和未来的交叉点正是现在，我就站在这个起点上。
 
