@@ -132,4 +132,46 @@ Lua 中使用 `...` 来表示变长的函数参数。在函数内部也是使用
 
 Lua 中的包 `strict.lua` 允许对程序中使用到的全局变量严格检查，当我们尝试在函数中对不存在一个全局变量赋值或者使用一个不存在的全局变量时，会抛出错误。
 
+## Real Programming
 
+Lua 中创建闭包的语法糖：`foo = function(x) return 2 * x end`。  
+在前面加上 `local` 关键字则将改闭包变为本地函数（local function）。  
+本地函数不能直接自递归调用，需要提前定义好。下面是一个例子。
+
+```lua
+local fact = function(n)
+    if n == 0 then return 1
+    else return n * fact(n-1) --buggy
+    end
+end
+
+local fact
+fact = function(n)
+    if n == 0 then return 1
+    else return n * fact(n-1) --ok
+    end
+end
+```
+
+Lua 的闭包函数能访问外部的变量。但采用闭包的形式使得相互之间不会干扰。下面是一个例子：
+
+```lua
+function newCounter ()
+    local count = 0
+    return function () -- anonymous function
+        count = count + 1
+        return count
+    end
+end
+c1 = newCounter()
+print(c1()) --> 1
+print(c1()) --> 2
+c2 = newCounter()
+print(c2()) --> 1
+print(c1()) --> 3
+print(c2()) --> 2
+```
+
+准确来说，Lua 中存放在值中的是闭包而不是函数，函数应该被理解为用于定义闭包的原型。
+
+to ch11(begin)
