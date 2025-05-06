@@ -5,6 +5,9 @@
     "folders": [
         {
             "name": "并行程序设计：概念及实践"
+        },
+        {
+            "name": "Distributed Computing Principles, Algorithms, and Systems"
         }
     ],
     "id": "82",
