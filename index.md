@@ -1,6 +1,6 @@
 # Welcome
 
-![](logo.png =300x)
+![](logo.png =200x)
 
 [Github](https://github.com/SYCstudio) | [IEEE](https://ieeexplore.ieee.org/author/37089924474) | [Google Scholar](https://scholar.google.com/citations?user=d-3rxrIAAAAJ)   
 [bilibili](https://space.bilibili.com/16392626) | [twitter](https://twitter.com/sycstudio1) | [pixiv](https://www.pixiv.net/users/24728784)  
@@ -8,7 +8,7 @@
 
 > 过去和未来的交叉点正是现在，我就站在这个起点上。
 
-sycstudio，北京大学 2020 级信息科学技术学院本科生，2024 级计算机学院博士生，目前主要研究方向为计算机网络与高性能计算相关，具体关注 Computer network system, Programmable network, Domain-specific languages and compilers 等领域。
+sycstudio，北京大学 2020 级信息科学技术学院本科生，2024 级计算机学院博士生，目前主要研究方向为计算机网络与高性能计算，对 Computer network system, Programmable network, Domain-specific languages and compilers 等领域略有兴趣。
 
 高中时期关于 OI 相关的笔记和文章，请访问 [OI](https://oi.sycstudio.com)  。
 
