@@ -42,24 +42,44 @@
             "path": "读书笔记 and 书评/计算机/编译原理/第7章 运行时刻环境.md"
         },
         {
-            "last_accessed_time": "2025-10-12T15:56:47Z",
+            "last_accessed_time": "2025-10-14T07:22:01Z",
+            "line_number": 116,
+            "path": "读书笔记 and 书评/计算机/并行与分布式/Distributed Computing Principles, Algorithms, and Systems/Introduction.md"
+        },
+        {
+            "last_accessed_time": "2025-10-14T08:32:55Z",
+            "line_number": 0,
+            "path": "读书笔记 and 书评/计算机/编译原理/第8章 代码生成.md"
+        },
+        {
+            "last_accessed_time": "2025-10-14T08:32:56Z",
+            "line_number": 0,
+            "path": "读书笔记 and 书评/计算机/编译原理/第5章 语法制导的翻译.md"
+        },
+        {
+            "last_accessed_time": "2025-10-14T08:32:57Z",
+            "line_number": 128,
+            "path": "读书笔记 and 书评/计算机/编译原理/第6章 中间代码生成.md"
+        },
+        {
+            "last_accessed_time": "2025-10-14T08:32:59Z",
+            "line_number": 0,
+            "path": "读书笔记 and 书评/计算机/编译原理/第1章 引论.md"
+        },
+        {
+            "last_accessed_time": "2025-10-16T15:30:20Z",
             "line_number": 2,
             "path": "读书笔记 and 书评/计算机/并行与分布式/Distributed Computing Principles, Algorithms, and Systems/A model of distributed computations.md"
         },
         {
-            "last_accessed_time": "2025-10-12T15:56:47Z",
-            "line_number": 534,
+            "last_accessed_time": "2025-10-28T16:06:23Z",
+            "line_number": 539,
             "path": "读书笔记 and 书评/书评.md"
         },
         {
-            "last_accessed_time": "2025-10-12T15:56:47Z",
-            "line_number": 136,
-            "path": "读书笔记 and 书评/计算机/编译原理/第8章 代码生成.md"
-        },
-        {
-            "last_accessed_time": "2025-10-14T07:22:01Z",
-            "line_number": 116,
-            "path": "读书笔记 and 书评/计算机/并行与分布式/Distributed Computing Principles, Algorithms, and Systems/Introduction.md"
+            "last_accessed_time": "2025-10-28T16:06:23Z",
+            "line_number": 104,
+            "path": "读书笔记 and 书评/计算机/编译原理/第9章 机器无关优化.md"
         }
     ],
     "image_folder": "vx_images",
