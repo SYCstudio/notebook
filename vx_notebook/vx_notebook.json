@@ -72,19 +72,29 @@
             "path": "读书笔记 and 书评/计算机/编译原理/第6章 中间代码生成.md"
         },
         {
-            "last_accessed_time": "2025-11-03T16:11:04Z",
-            "line_number": 459,
-            "path": "读书笔记 and 书评/计算机/编译原理/第9章 机器无关优化.md"
-        },
-        {
             "last_accessed_time": "2025-11-07T17:15:01Z",
             "line_number": 568,
             "path": "读书笔记 and 书评/书评.md"
         },
         {
-            "last_accessed_time": "2025-11-24T16:33:43Z",
-            "line_number": 191,
+            "last_accessed_time": "2025-11-25T12:47:00Z",
+            "line_number": 186,
+            "path": "读书笔记 and 书评/计算机/编译原理/第12章 过程间分析.md"
+        },
+        {
+            "last_accessed_time": "2025-11-25T12:47:01Z",
+            "line_number": 4,
+            "path": "读书笔记 and 书评/计算机/编译原理/第11章 并行性与局部性优化.md"
+        },
+        {
+            "last_accessed_time": "2025-11-25T12:47:02Z",
+            "line_number": 155,
             "path": "读书笔记 and 书评/计算机/编译原理/第10章 指令级并行性.md"
+        },
+        {
+            "last_accessed_time": "2025-11-25T12:47:05Z",
+            "line_number": 56,
+            "path": "读书笔记 and 书评/计算机/编译原理/第9章 机器无关优化.md"
         }
     ],
     "image_folder": "vx_images",

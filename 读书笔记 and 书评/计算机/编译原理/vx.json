@@ -100,6 +100,26 @@
             "signature": "7053185103297705941",
             "tags": [
             ]
+        },
+        {
+            "attachment_folder": "",
+            "created_time": "2025-11-24T16:34:38Z",
+            "id": "186",
+            "modified_time": "2025-11-24T16:35:41Z",
+            "name": "第11章 并行性与局部性优化.md",
+            "signature": "7054707987031820574",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "",
+            "created_time": "2025-11-25T06:46:40Z",
+            "id": "187",
+            "modified_time": "2025-11-25T12:46:28Z",
+            "name": "第12章 过程间分析.md",
+            "signature": "17338173154784530640",
+            "tags": [
+            ]
         }
     ],
     "folders": [
