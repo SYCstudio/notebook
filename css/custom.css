@@ -1,0 +1,29 @@
+/* 正文段落首行缩进：两个汉字宽（2em）。Markdown 由 markdown-it 渲染为 .viki-content 内的 <p>。 */
+.viki-content p {
+    text-indent: 2em;
+}
+
+/* 行尾两空格换行（<br>）经 custom.js 拆成多行后，缩进加在子 span 上，父 p 不再缩进 */
+.viki-content p.viki-cn-para-split {
+    text-indent: 0;
+}
+
+.viki-content .viki-cn-para-line {
+    display: block;
+    text-indent: 2em;
+}
+
+/* 列表、表格、引用内段落不再额外缩进，避免与序号/边线冲突 */
+.viki-content li > p,
+.viki-content blockquote p,
+.viki-content td p,
+.viki-content th p {
+    text-indent: 0;
+}
+
+.viki-content li > p .viki-cn-para-line,
+.viki-content blockquote p .viki-cn-para-line,
+.viki-content td p .viki-cn-para-line,
+.viki-content th p .viki-cn-para-line {
+    text-indent: 0;
+}
