@@ -1,4 +1,13 @@
 # =========================
+# Quartz upstream-only (ship locally, do not commit)
+# =========================
+quartz/docs/
+quartz/.github/
+quartz/Dockerfile
+quartz/CODE_OF_CONDUCT.md
+quartz/README.md
+
+# =========================
 # Quartz build output
 # =========================
 quartz/public/
