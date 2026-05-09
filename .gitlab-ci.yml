@@ -9,7 +9,8 @@ build:
     - apt-get update -qq && apt-get install -y --no-install-recommends rsync
   script:
     - sh scripts/build.sh
+    - tar -czf public.tar.gz quartz/public
   artifacts:
     paths:
-      - quartz/public
+      - public.tar.gz
     expire_in: 1 day
