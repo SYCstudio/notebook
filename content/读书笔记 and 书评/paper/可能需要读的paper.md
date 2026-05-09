@@ -16,7 +16,7 @@ telemetry systems ought to decide on their own and at runtime when and for how l
 
 ### [NSDI 2021] LightGuardian: A Full-Visibility, Lightweight, In-band Telemetry System Using Sketchlets
 
-![](assets/20220824153156338_25893.png)
+![](assets/20220824153156338_25893.jpg)
 
 ### [SIGCOMM 2022] Continuous in-network round-trip time monitoring
 这个更多的是 RTT 测量，不过既然 RTT 对带宽测量应该也有影响，故列在这里  
@@ -33,9 +33,9 @@ in both traditional datacenter topologies and emerging reconfigurable datacenter
 
 这篇文章还贴心地总结了拥塞控制的相关工作，并按照方法进行了分类。
 
-![](assets/20220823151315401_22918.png)
+![](assets/20220823151315401_22918.jpg)
 
-![](assets/20220823151331119_30140.png)
+![](assets/20220823151331119_30140.jpg)
 
 ### [NSDI 2022] Backpressure Flow Control
 BFC provides per-hop per-flow flow control, but with bounded state, constant-time switch operations, and careful use of buffers and queues.  
@@ -69,9 +69,9 @@ dynamically adjust the marking threshold at each switch
 focuses on data-path off load of established connections  
 SmartNIC and fine-grained data-path parallelism
 
-![](assets/20220823152103400_12920.png)
+![](assets/20220823152103400_12920.jpg)
 
-![](assets/20220823152123342_1048.png)
+![](assets/20220823152123342_1048.jpg)
 
 
 ## queue

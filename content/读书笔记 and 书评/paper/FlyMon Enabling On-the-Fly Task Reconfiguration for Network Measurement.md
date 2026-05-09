@@ -9,18 +9,18 @@ key-idea： 将现有的广泛部署的若干测量任务抽象为 flow key 和 
 
 Composable Measurement Unit：将各个测量模块实现在交换机上，通过软件的形式在执行期将这些模块组装形成完整的测量流水线。分为 key-selection phase 和 attribute-operation phase。
 
-![](assets/125854512249095.png)
+![](assets/125854512249095.jpg)
 
 key-selection phase：  
 对哈希的处理：不同的测量任务可能需要组合不同的 packet-header 信息形成 flow-key，为避免每次部署新任务都要重新配置哈希，这里预处理所有可能的哈希情况，然后通过软件的形式做选择。可以认为是在默认的哈希找地址的过程上，又前置了一个哈希函数，将前一个哈希函数的结果作为后一个哈希函数的 key。由于组合的情况很多，交换机资源可能不能支持所有的，由于在交换机的每个阶段可以使用一次 SALU，所以使用异或的方式组合两种哈希，以获得更小的资源消耗和更广泛的表达。  
 less-copy stategy：对哈希结果进行有损压缩以减小内存占用。为了减轻由此带来的哈希冲突增加，支持将一些重量的任务提前使用 filter 拆分成小任务来处理。
 
-![](assets/420454812236962.png)
+![](assets/420454812236962.jpg)
 
 attribute-operation phase:  
 使用这里主要的问题是，可以预置给 SALU 的运算符数量是有限的。解决办法是，首先在编译层将测量算法解码成 data-plane operation 和 control-plane analysis，只有前者是需要实现在交换机上的；然后是将一些可以合并的算子合并，比如 bit-wise AND 和 bit-wise OR。
 
-![](assets/437775212257128.png)
+![](assets/437775212257128.jpg)
 
 在部署 CMU 到可编程交换机上时也有值得注意的地方。首先是，参考 CPU 流水线中阶段重叠的办法，将 CMU 组装成 CMU Group 来部署。由于不同阶段着重使用的硬件资源类型不一样，采用流水线的方法能很好地利用硬件资源。
 

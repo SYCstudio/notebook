@@ -10,11 +10,11 @@ P4 prototype of a tofino switch
 
 monitor pair of TCP flow
 
-![](assets/20220910141914842_7203.png)
+![](assets/20220910141914842_7203.jpg)
 
 track valid measurement ranges
 
-![](assets/20220910142014580_31640.png)
+![](assets/20220910142014580_31640.jpg)
 
 lazy eviction with a second chance and recirculation  
 completely ignore SYN and SYN-ACK packet (to avoid SYN flooding attacks)

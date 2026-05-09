@@ -23,7 +23,7 @@ export default ((opts?: Options) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src="/assets/beian.png" alt="" height={20} />
+          <img src="/assets/beian.jpg" alt="" height={20} />
           <span>京公网安备 11010802035061号</span>
         </a>
         <ul>

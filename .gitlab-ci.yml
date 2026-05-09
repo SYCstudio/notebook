@@ -12,3 +12,4 @@ build:
   artifacts:
     paths:
       - quartz/public
+    expire_in: 1 day

@@ -37,7 +37,7 @@ Limitations of the Kernel's TCP Stack
 
 Benefits of user-level TCP
 
-![](assets/20220219191848753_29208.png)
+![](assets/20220219191848753_29208.jpg)
 
 Linux and MegaPipe: low efficient of CPU usage.
 
@@ -45,7 +45,7 @@ Linux and MegaPipe: low efficient of CPU usage.
 
 TCP stack in the user level:
 
-![](assets/20220219192255915_24125.png)
+![](assets/20220219192255915_24125.jpg)
 
 highest level: App -> mTCP library (socket API, event-driven programming interface)  
 user-level TCP stack: as a thread on each CPU core. mTCP thread directly transmits and receives packets to and from the NIC using custom packet I/O library.
@@ -60,7 +60,7 @@ packets reveived and transmitted in batches.
 
 naturally eliminates many system calls.
 
-![](assets/20220219200342451_8231.png)
+![](assets/20220219200342451_8231.jpg)
 
 a separate TCP thread  
 app and mTCP communication: via shared TCP buffer (access granted only through the library functions, for safety)  
@@ -69,7 +69,7 @@ challenges: managing concurrent data structure and context switch between the ap
 
 #### Basic TCP Processing
 
-![](assets/20220219202019939_19468.png)
+![](assets/20220219202019939_19468.jpg)
 
 queue, signal
 
@@ -92,7 +92,7 @@ two types of timers: a) a sorted list, for coarse-grained timers. b) a hash tabl
 
 ### Batched Event Handling
 
-![](assets/20220220152418203_17634.png)
+![](assets/20220220152418203_17634.jpg)
 
 use queue in both RX and TX directions, transparently enables batch processing.
 

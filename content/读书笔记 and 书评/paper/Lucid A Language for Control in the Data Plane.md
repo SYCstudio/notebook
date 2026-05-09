@@ -41,7 +41,7 @@ Complexity
 Event-driven programming  
 Data-plane event scheduler  
 
-![](assets/70291821241049.png)
+![](assets/70291821241049.jpg)
 
 Operating with persistent state  
 Goal  
@@ -62,9 +62,9 @@ Type-and-effect system
 
 > Each ordered variable is associated with a stage
 
-![](assets/202191821259475.png)
+![](assets/202191821259475.jpg)
 
-![](assets/295101821247342.png)
+![](assets/295101821247342.jpg)
 
 ## Limitation
 

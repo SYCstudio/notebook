@@ -17,9 +17,9 @@ current = Total rate ( sum of q-gradient and q drain rate)
 
 a single bottleneck link model
 
-![PowerTCP's control law](assets/20220908191956685_13062.png)
+![PowerTCP's control law](assets/20220908191956685_13062.jpg)
 
-![PowerTCP's control law](assets/20220908192012426_16549.png)
+![PowerTCP's control law](assets/20220908192012426_16549.jpg)
 
 measurement: in-band network telemetry (INT)
 

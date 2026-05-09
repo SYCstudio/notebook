@@ -26,6 +26,6 @@ ideal telemetry system requirements:
 
 three components: Scheduler, Runtime, Switch Hardware  
 
-![Architecture of DynATOS](assets/20220903125748710_7115.png)
+![Architecture of DynATOS](assets/20220903125748710_7115.jpg)
 
 ## Extension

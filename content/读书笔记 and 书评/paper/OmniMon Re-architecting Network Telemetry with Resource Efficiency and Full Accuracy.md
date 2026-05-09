@@ -7,7 +7,7 @@
 ## Overview
 key idea: 将传统的测量功能模块化分散到不同的网络硬件上（end-host, switch 和 controller）
 
-![omnimon architecture](assets/73761916249093.png)
+![omnimon architecture](assets/73761916249093.jpg)
 
 对于每一个流在 end-host 端生成 host index。由 controller 统一生成标号并下发给 end-host 保证不会冲突。switch index 也是类似的，但是由于 switch 资源限制无法为每个流分配，所以是共享的，但是 controller 要尽量保证合理的分配标号使得后续解方程的时候有解。
 

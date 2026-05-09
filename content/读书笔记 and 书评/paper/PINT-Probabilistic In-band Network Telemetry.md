@@ -24,7 +24,7 @@ each query instantiate: encoding module, recording module, interface module.
 encoding runs on the switches and modifies the digest of packet.  
 PINT remains transparent to both sender and receiver.
 
-![PINT architecture](assets/20220831132651552_15534.png)
+![PINT architecture](assets/20220831132651552_15534.jpg)
 
 challnge: bit constraints, switch coordination, switch constraints (limit support for arithmetic operations) 
 

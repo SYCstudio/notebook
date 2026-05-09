@@ -7,7 +7,7 @@
 ## Overview
 key-idea：为接收端设置两个阈值，一个是接受区间，一个是接受截止时间。前者保证通信质量，后者解决 long-tail latency 问题。
 
-![](assets/418825213246352.png)
+![](assets/418825213246352.jpg)
 
 在 PS 架构中，aggregation 是多对一容易出现 incast 问题，所以需要上述 loss-tolerant protocol；broadcase 是一对多则不需要，使用普通的传输协议即可。  
 使用 bubble-filling 解决由于切割浮点数带来的错误。其实就是 padding。
