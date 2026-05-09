@@ -1,1 +1,35 @@
+# =========================
+# Quartz build output
+# =========================
+quartz/public/
+quartz/.quartz-cache/
+quartz/prof/
+
+# =========================
+# dependencies
+# =========================
+quartz/node_modules/
+
+# =========================
+# typescript cache
+# =========================
+quartz/tsconfig.tsbuildinfo
+
+# =========================
+# system
+# =========================
+.DS_Store
+
+# =========================
+# optional local configs
+# =========================
+.obsidian
+.replit
+replit.nix
+
+# =========================
+# safety
+# =========================
+private/
+
 .vscode
