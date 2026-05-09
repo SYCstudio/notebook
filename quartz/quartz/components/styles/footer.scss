@@ -3,6 +3,23 @@ footer {
   margin-bottom: 4rem;
   opacity: 0.7;
 
+  .beian {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.35rem;
+    text-decoration: none;
+    color: #939393;
+    line-height: 1.25;
+
+    img {
+      display: block;
+      flex-shrink: 0;
+      height: 20px;
+      width: auto;
+    }
+  }
+
   & ul {
     list-style: none;
     margin: 0;

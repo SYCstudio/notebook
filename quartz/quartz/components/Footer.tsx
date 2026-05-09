@@ -17,6 +17,15 @@ export default ((opts?: Options) => {
           {i18n(cfg.locale).components.footer.createdWith}{" "}
           <a href="https://quartz.jzhao.xyz/">Quartz v{version}</a> © {year}
         </p>
+        <a
+          class="beian"
+          href="https://beian.mps.gov.cn/#/query/webSearch"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="/assets/beian.png" alt="" height={20} />
+          <span>京公网安备 11010802035061号</span>
+        </a>
         <ul>
           {Object.entries(links).map(([text, link]) => (
             <li>
