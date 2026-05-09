@@ -1,0 +1,11 @@
+stages:
+  - build
+
+build:
+  image: node:24
+  stage: build
+  script:
+    - sh scripts/build.sh
+  artifacts:
+    paths:
+      - quartz/public
