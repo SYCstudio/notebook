@@ -5,6 +5,8 @@ stages:
 
 build:
   stage: build
+  before_script:
+    - apt-get update -qq && apt-get install -y --no-install-recommends rsync
   script:
     - sh scripts/build.sh
   artifacts:
