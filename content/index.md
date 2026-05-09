@@ -1,3 +1,8 @@
+---
+title: Welcome
+---
+
+
 # Welcome
 
 ![](assets/logo.jpg =200x)
