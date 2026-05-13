@@ -25,3 +25,22 @@ tlmgr 自更新：`tlmgr update --self --all`
 ## OCI 问题
 装回了 stable 版本，但似乎 OCI 遇到了一些问题。  
 默认的 `containernetworking-plugins` 包版本过低，需要到 `http://archive.ubuntu.com/ubuntu/pool/universe/g/golang-github-containernetworking-plugins/` 下载 `containernetworking-plugins_1.1.1+ds1-1_amd64.deb` ，手动通过 `dpkg` 安装。
+
+## Docker 配置 proxy
+
+Docker 的镜像拉取是 system service，无法通过环境变量（如 `export HTTP_PROXY=xxx`）来设置代理。需要通过以下步骤
+
+1. 创建 systemd 目录 `sudo mkdir -p /etc/systemd/system/docker.service.d` 
+2. 创建 proxy 设置 `sudo nano /etc/systemd/system/docker.service.d/http-proxy.conf` 
+3. 写入配置 
+```[Service]  
+Environment="HTTP_PROXY=http://114514"  
+Environment="HTTPS_PROXY=http://1919810"  
+Environment="NO_PROXY=localhost,127.0.0.1"
+```
+4. 重新加载 systemd 并重启 docker
+```
+sudo systemctl daemon-reexec  
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
