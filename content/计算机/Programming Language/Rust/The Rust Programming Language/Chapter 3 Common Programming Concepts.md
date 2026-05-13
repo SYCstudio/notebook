@@ -37,4 +37,4 @@ We look into two classes of types, scalar types and compound types.
 
 A scalar type represent a single value. There four primary scalar types in Rust: integers, float-point numbers, Booleans and characters.
 
-![](assets/Integer_types.png)
+![](./assets/Integer_types.png)

@@ -1,13 +1,17 @@
 import { QuartzTransformerPlugin } from "../types"
 import {
+  FilePath,
   FullSlug,
   RelativeURL,
   SimpleSlug,
   TransformOptions,
+  expandHrefAgainstPageSlug,
+  slugifyFilePath,
   stripSlashes,
   simplifySlug,
   splitAnchor,
   transformLink,
+  tryColocatedAssetsRelativeUrl,
 } from "../../util/path"
 import path from "path"
 import { visit } from "unist-util-visit"
@@ -40,7 +44,6 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
       return [
         () => {
           return (tree: Root, file) => {
-            const curSlug = simplifySlug(file.data.slug!)
             const outgoing: Set<SimpleSlug> = new Set()
 
             const transformOptions: TransformOptions = {
@@ -103,23 +106,18 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                   isAbsoluteUrl(dest, { httpOnly: false }) || dest.startsWith("#")
                 )
                 if (isInternal) {
-                  dest = node.properties.href = transformLink(
-                    file.data.slug!,
-                    dest,
-                    transformOptions,
-                  )
+                  const expanded = expandHrefAgainstPageSlug(file.data.slug!, dest)
+                  dest = node.properties.href =
+                    tryColocatedAssetsRelativeUrl(file.data.slug!, dest) ??
+                    transformLink(file.data.slug!, expanded, transformOptions)
 
-                  // url.resolve is considered legacy
-                  // WHATWG equivalent https://nodejs.dev/en/api/v18/url/#urlresolvefrom-to
-                  const url = new URL(dest, "https://base.com/" + stripSlashes(curSlug, true))
-                  const canonicalDest = url.pathname
-                  let [destCanonical, _destAnchor] = splitAnchor(canonicalDest)
-                  if (destCanonical.endsWith("/")) {
-                    destCanonical += "index"
+                  const [expPath] = splitAnchor(expanded)
+                  let full = decodeURIComponent(
+                    stripSlashes(slugifyFilePath(expPath as FilePath), true),
+                  ) as FullSlug
+                  if (full.endsWith("/")) {
+                    full = `${full}index` as FullSlug
                   }
-
-                  // need to decodeURIComponent here as WHATWG URL percent-encodes everything
-                  const full = decodeURIComponent(stripSlashes(destCanonical, true)) as FullSlug
                   const simple = simplifySlug(full)
                   outgoing.add(simple)
                   node.properties["data-slug"] = full
@@ -149,12 +147,10 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
 
                 if (!isAbsoluteUrl(node.properties.src, { httpOnly: false })) {
                   let dest = node.properties.src as RelativeURL
-                  dest = node.properties.src = transformLink(
-                    file.data.slug!,
-                    dest,
-                    transformOptions,
-                  )
-                  node.properties.src = dest
+                  const expanded = expandHrefAgainstPageSlug(file.data.slug!, dest)
+                  dest = node.properties.src =
+                    tryColocatedAssetsRelativeUrl(file.data.slug!, dest) ??
+                    transformLink(file.data.slug!, expanded, transformOptions)
                 }
               }
             })
