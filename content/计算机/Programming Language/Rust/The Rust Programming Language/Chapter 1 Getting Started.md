@@ -1,3 +1,5 @@
+# Chapter 1 Getting Started
+
 
 Compiling a single file: `rustc xxx.rs`， will produce an executable file.
 

@@ -1,3 +1,5 @@
+# Chapter 3 Common Programming Concepts
+
 ## Variables and Mutability
 In Rust, variables are immutable by default.  
 Using the `mut` explicitly to make a variable mutable.
