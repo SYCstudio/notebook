@@ -4,6 +4,18 @@ stages:
   - build
 
 build:
+  rules:
+    # 允许手动触发
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: always
+
+    # 允许定时任务触发
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: always
+
+    # 其它情况不触发（如 push）
+    - when: never
+  
   stage: build
   before_script:
     - apt-get update -qq && apt-get install -y --no-install-recommends rsync
@@ -13,4 +25,4 @@ build:
   artifacts:
     paths:
       - public.tar.gz
-    expire_in: 1 day
+    expire_in: 2 hours
