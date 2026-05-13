@@ -1,3 +1,19 @@
 @use "./base.scss";
 
-// put your custom CSS here!
+// 正文首行缩进两个汉字宽。
+// - 空行分段 → 多个 <p>：每个 <p> 首行缩进。
+// - 行尾两空格硬换行 → 同一 <p> 内多个 <br>：须配合 each-line，否则只有第一行缩进。
+.page article p {
+  text-indent: 2em;
+  text-indent: 2em each-line;
+}
+
+// 宽松列表会在 li 内嵌套 <p>，不再额外首行缩进以免与列表符号错位
+.page article li > p {
+  text-indent: 0;
+}
+
+// 以单张图片为主的段落（常见于图注）不缩进
+.page article p:has(> img:only-child) {
+  text-indent: 0;
+}
