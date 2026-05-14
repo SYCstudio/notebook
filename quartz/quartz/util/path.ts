@@ -92,46 +92,6 @@ export function simplifySlug(fp: FullSlug): SimpleSlug {
   return (res.length === 0 ? "/" : res) as SimpleSlug
 }
 
-/**
- * Join `pathPart` (from a Markdown link or image URL) with the directory of
- * `pageSlug` when it is written relative to the note file (not `http:`, not
- * `//`, not root `/`, not `./` / `../`). Otherwise returns `pathPart` unchanged.
- */
-export function resolvePathAgainstPageSlug(pageSlug: FullSlug, pathPart: string): string {
-  const t = pathPart.trim()
-  if (!t) return pathPart
-  if (t.startsWith("/")) return pathPart
-  if (t.startsWith("./") || t.startsWith("../")) return pathPart
-  if (t.startsWith("//")) return pathPart
-  if (/^[a-z][a-z0-9+.-]*:/i.test(t)) return pathPart
-  const lastSlash = pageSlug.lastIndexOf("/")
-  const dir = lastSlash === -1 ? "" : pageSlug.slice(0, lastSlash)
-  return dir ? `${dir}/${t}` : t
-}
-
-/** `pathPart` + `#anchor` from `href` / `src`. */
-export function expandHrefAgainstPageSlug(pageSlug: FullSlug, href: string): string {
-  const [pathPart, anchor] = splitAnchor(decodeURI(href))
-  return resolvePathAgainstPageSlug(pageSlug, pathPart) + anchor
-}
-
-/**
- * When the target is `assets/...` under the same slug directory as the page,
- * use `./assets/...` instead of `../../../.../assets/...`.
- */
-export function tryColocatedAssetsRelativeUrl(pageSlug: FullSlug, href: string): RelativeURL | null {
-  const [pathPart, anchor] = splitAnchor(decodeURI(href))
-  if (!pathPart.startsWith("assets/")) return null
-  const expanded = resolvePathAgainstPageSlug(pageSlug, pathPart)
-  const assetSlug = slugifyFilePath(stripSlashes(expanded) as FilePath)
-  const pageDir = pageSlug.lastIndexOf("/") === -1 ? "" : pageSlug.slice(0, pageSlug.lastIndexOf("/"))
-  const assetDir = assetSlug.lastIndexOf("/") === -1 ? "" : assetSlug.slice(0, assetSlug.lastIndexOf("/"))
-  if (pageDir !== assetDir) return null
-  const rest = pageDir === "" ? assetSlug : assetSlug.slice(pageDir.length + 1)
-  if (!rest.startsWith("assets/")) return null
-  return (`./${rest}${anchor}`) as RelativeURL
-}
-
 export function transformInternalLink(link: string): RelativeURL {
   let [fplike, anchor] = splitAnchor(decodeURI(link))
 

@@ -15,11 +15,11 @@ Features:
 
 Each computer has a memory-processing unit and the computers are connected by a communication network.
 
-![](./assets/466541715256839.jpg)
+![[assets/466541715256839.jpg]]
 
 Interaction of the software components at each processor.
 
-![](./assets/270411815277005.jpg)
+![[assets/270411815277005.jpg]]
 
 Common functions library: Remote procedure call(RPC), Object Management Group’s (OMG) common object request broker architecture (CORBA), DCOM (distributed component object model), Java, and RMI (remote method invocation), the message-passing interface (MPI).
 
@@ -37,12 +37,12 @@ Common functions library: Remote procedure call(RPC), Object Management Group’
 
 ## Relation to parallel multiprocessor/multicomputer systems
 
-![Multiprocessor system](./assets/309260916261983.jpg)
+![[assets/309260916261983.jpg|Multiprocessor system]]
 
 *Multiprocessor system*: direct access to shared memory, common address space, corresponds to a uniform memory access (UMA) architecture (access latency from any processor is the same).  
 The interconnection network to access the memory may be a bus, although for greater efficiency, it is usually a *multistage switch* with a symmetric and regular design.
 
-![two examples of interconnection networks.](./assets/213883515269674.jpg)
+![[assets/213883515269674.jpg|two examples of interconnection networks.]]
 
 Each 2x2 switch: allows data on either of the two input wires to be switched to the upper or the lower output wire.  
 A n-input and n-output network uses log n stages and log n bits for addressing. At stage k uses only the kth bit. Down at clock speed in hardware. Recursivly constructed multi-stage networks.  
@@ -51,7 +51,7 @@ A n-input and n-output network uses log n stages and log n bits for addressing. 
 
 Interconnection function: a link exsis between output $i$ of a stage and the input $j$ to the next stage should follow:
 
-![](./assets/279454315266229.jpg)
+![[assets/279454315266229.jpg]]
 
 Routing function: The routing function from input line $i$ to output line $j$ considers only $j$ and the stage number $s$, where $s \in [0, \log_2n − 1]$ . In a stage s switch, if the $s + 1th$ MSB (most significant bit) of $j$ is 0, the data is routed to the upper output wire, otherwise it is routed to the lower output wire.
 
@@ -66,12 +66,12 @@ For stage s, apply the rule above for $M/2^s$ switches.
 
 Routing function: In a stage $s$ switch, if the $s + 1th$ MSB of $j$ is 0, the data is routed to the upper output wire, otherwise it is routed to the lower output wire.
 
-![Multicomputer parrallel system](./assets/526210916279863.jpg)
+![[assets/526210916279863.jpg|Multicomputer parrallel system]]
 
 *Multicomputer parrallel system*: do not have direct access to shared memory, non-uniform memory access (NUMA) architecture.  
 processors configured in regular and symmetrical topologies such as an array or mesh, ring, torus, cube, and hypercube.
 
-![Example: mesh and hypercube](./assets/26481416277467.jpg)
+![[assets/26481416277467.jpg|Example: mesh and hypercube]]
 
 * Mesh: a $k \times k$ contains $k^2$ processors. Using Manhattan grid to route.  
 * Hypercube: a k-dimensional hypercube has $2^k$ processors. Using Hamming distance to measure distance. Routing is done hop-by-hop. At any hop, the message can be sent along any dimension corresponding to the bit position in which the current node’s address and the destination address differ. Multiple routes between any pairs of nodes, which provides fault-tolerance.
@@ -90,7 +90,7 @@ The distinction of UMA and NUMA is important becouse of variable and unpredictab
 * Multiple instruction stream, single data stream(MISD): specialized mode of operation with limited but niche applications, e.g., visualization.  
 * Multiple instruction stream, multiple data stream(MIMD): operation in distributed systems as well as in the vast majority of parallel systems.
 
-![](./assets/410434414274970.jpg)
+![[assets/410434414274970.jpg]]
 
 **Coupling**: interdependency and binding and/or homogeneity among the modules.  
 **Parallelism or speedup of a program on a specific system**: a measure of the relative speedup of a specific program, on a given machine. The speedup depends on the number of processors and the mapping of the code to the processors.  
@@ -116,7 +116,7 @@ Send() and Recieve()
 * Blocking primitives: if control returns to the invoking process after the processing for the primitive (whether in synchronous or asynchronous mode) completes.  
 * Non-blocking primitives: if control returns back to the invoking process immediately after invocation, even though the operation has not completed.
 
-![](./assets/266200815256211.jpg)
+![[assets/266200815256211.jpg]]
 
 *synchronous versus asynchronous processors*: Processor synchrony indicates that all the processors execute in lock-step with their clocks synchronized.  
 Such synchronous is not attainable in a distributed system, what is more generally indicated is that for a large granularity of code, usually termed as a step, the processors are synchronized.  
@@ -124,11 +124,11 @@ Using barrier synchronozation to ensure.
 
 ## Synchronous versus asynchronous executions
 
-![An example of asynchronous execution](./assets/293802415278651.jpg)
+![[assets/293802415278651.jpg|An example of asynchronous execution]]
 
 asynchronous execution: (i) there is no processor synchrony and there is no bound on the drift rate of processor clocks, (ii) message delays (transmission + propagation times) are finite but unbounded, and (iii) there is no upper bound on the time taken by a process to execute a step.  
 
-![An example of synchronous execution](./assets/567422415273787.jpg)
+![[assets/567422415273787.jpg|An example of synchronous execution]]
 
 synchronous execution: (i) processors are synchronized and the clock drift rate between any two processors is bounded, (ii) message delivery (transmission + delivery) times are such that they occur in one logical step or round, and (iii) there is a known upper bound on the time taken by a process to execute a step.
 
@@ -136,7 +136,7 @@ It is hard to truly build a completely synchronous system(eg bouned time of mess
 Thus, synchronous execution is an abstraction that needs to be provided to the programs.  
 *virtually synchronous execution*: processors are allowed to have an asynchronous execution for a period of time and then they synchronize.
 
-![](./assets/182753015267333.jpg)
+![[assets/182753015267333.jpg]]
 
 all four classes are equivalent in terms of “computability” – what can and cannot be computed – in failure-free systems.
 

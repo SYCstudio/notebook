@@ -5,7 +5,7 @@ title: Welcome
 
 # Welcome
 
-![](./assets/logo.jpg =200x)
+![[assets/logo.jpg|200]]
 
 [Github](https://github.com/SYCstudio) | [IEEE](https://ieeexplore.ieee.org/author/37089924474) | [Google Scholar](https://scholar.google.com/citations?user=d-3rxrIAAAAJ)   
 [bilibili](https://space.bilibili.com/16392626) | [twitter](https://twitter.com/sycstudio1) | [pixiv](https://www.pixiv.net/users/24728784)  
