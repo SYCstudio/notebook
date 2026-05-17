@@ -12,7 +12,7 @@ xv6 内核处理所有的 trap，并将处理方法分为四个阶段：RISC-V C
 ## RISC-V trap machinery
 RISC-V CPU 提供了若干关于 trap 的控制寄存器，下面是其中比较重要的几个。
 
-![[assets/20220306120440874_12557.jpg]]
+![[assets/计算机/Computer-Architechture/操作系统/xv6-book/20220306120440874_12557.jpg]]
 
 上面的这些寄存器都仅能在 supervisor mode 下访存，不能在 user mode 下读写。有一套等价的寄存器在 machine mode 中，不过 xv6 仅在处理时间中断的一些特殊情况下会使用到。  
 在多核处理器中，每个 CPU 都独立拥有一组上述处理器，这意味着在某些时刻可以有超过一个 trap 在被处理。  

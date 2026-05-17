@@ -39,11 +39,11 @@ We look into two classes of types, scalar types and compound types.
 
 A scalar type represent a single value. There four primary scalar types in Rust: integers, float-point numbers, Booleans and characters.
 
-![[assets/Integer_types.jpeg]]
+![[assets/计算机/Programming-Language/Rust/The-Rust-Programming-Language/Integer_types.jpeg]]
 
 Rust allows us to write integer literals in any of the forms shown in the following image.
 
-![[assets/Pasted image 20260514145652.jpeg]]
+![[assets/计算机/Programming-Language/Rust/The-Rust-Programming-Language/Pasted image 20260514145652.jpeg]]
 
 > Integer Overflow:
 > Rust behaves differently when an integer overflowing happen.

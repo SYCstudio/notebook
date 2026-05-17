@@ -15,6 +15,7 @@ Usage (from repo root):
 
   python scripts/move_md_assets.py --source-dir content/foo --dest-dir content/shared/assets --dry-run
   python scripts/move_md_assets.py --source-dir content/foo --dest-dir content/shared/assets
+  python scripts/move_md_assets.py --source-file "content/foo/Note.md" --dest-dir assets
   python scripts/move_md_assets.py --source-dir content/foo --dest-dir pool --link-prefix pool
 """
 
@@ -51,14 +52,14 @@ def is_image_path(path: Path) -> bool:
 
 
 def wikilink_target(
-    md_parent: Path,
+    project_root: Path,
     dest_file: Path,
     link_prefix: str | None,
 ) -> str:
     if link_prefix is not None:
         prefix = link_prefix.strip("/").replace("\\", "/")
         return f"{prefix}/{dest_file.name}" if prefix else dest_file.name
-    return Path(os.path.relpath(dest_file, md_parent)).as_posix()
+    return Path(os.path.relpath(dest_file, project_root)).as_posix()
 
 
 def format_wikilink(target: str, display: str | None) -> str:
@@ -71,6 +72,29 @@ def collect_markdown_files(source_dir: Path, recursive: bool) -> list[Path]:
     if recursive:
         return sorted(source_dir.rglob("*.md"))
     return sorted(source_dir.glob("*.md"))
+
+
+def resolve_markdown_sources(
+    source_dir: Path | None,
+    source_file: Path | None,
+    recursive: bool,
+) -> tuple[list[Path], Path]:
+    if source_file is not None:
+        md = source_file.resolve()
+        if not md.is_file():
+            print(f"--source-file is not a file: {md}", file=sys.stderr)
+            raise SystemExit(2)
+        if md.suffix.lower() != ".md":
+            print(f"--source-file must be a .md file: {md}", file=sys.stderr)
+            raise SystemExit(2)
+        return [md], md.parent
+
+    assert source_dir is not None
+    root = source_dir.resolve()
+    if not root.is_dir():
+        print(f"--source-dir is not a directory: {root}", file=sys.stderr)
+        raise SystemExit(2)
+    return collect_markdown_files(root, recursive), root
 
 
 def choose_dest_path(
@@ -111,6 +135,7 @@ def choose_dest_path(
 def process_markdown(
     md_path: Path,
     dest_dir: Path,
+    project_root: Path,
     link_prefix: str | None,
     on_collision: str,
     dry_run: bool,
@@ -166,7 +191,7 @@ def process_markdown(
                     shutil.move(str(src), str(dest))
                     stats["moved"] += 1
 
-        new_target = wikilink_target(md_parent, dest, link_prefix)
+        new_target = wikilink_target(project_root, dest, link_prefix)
         old = match.group(0)
         new = format_wikilink(new_target, display)
         if new != old:
@@ -209,11 +234,16 @@ def main() -> int:
     ap = argparse.ArgumentParser(
         description="Move wikilinked assets from Markdown notes to a destination folder and rewrite links.",
     )
-    ap.add_argument(
+    source = ap.add_mutually_exclusive_group(required=True)
+    source.add_argument(
         "--source-dir",
         type=Path,
-        required=True,
         help="Directory containing .md files to scan",
+    )
+    source.add_argument(
+        "--source-file",
+        type=Path,
+        help="Single .md file to process",
     )
     ap.add_argument(
         "--dest-dir",
@@ -228,8 +258,14 @@ def main() -> int:
         metavar="PREFIX",
         help=(
             "Fixed wikilink path prefix after move, e.g. 'shared/assets' -> ![[shared/assets/foo.jpg]]. "
-            "Default: path relative to each .md file's directory"
+            "Default: path relative to the project root (parent of scripts/)"
         ),
+    )
+    ap.add_argument(
+        "--project-root",
+        type=Path,
+        default=None,
+        help="Project root for wikilink paths (default: parent directory of this script)",
     )
     ap.add_argument(
         "--no-recursive",
@@ -245,21 +281,24 @@ def main() -> int:
     ap.add_argument(
         "--prune-empty-assets",
         action="store_true",
-        help="Remove empty 'assets' directories under --source-dir after moving",
+        help=(
+            "Remove empty 'assets' directories after moving "
+            "(under --source-dir, or under the --source-file parent directory)"
+        ),
     )
     ap.add_argument("--dry-run", action="store_true", help="Print actions only; do not move or edit files")
     args = ap.parse_args()
 
-    source_dir = args.source_dir.resolve()
+    project_root = (args.project_root or default_root).resolve()
     dest_dir = args.dest_dir.resolve()
 
-    if not source_dir.is_dir():
-        print(f"--source-dir is not a directory: {source_dir}", file=sys.stderr)
-        return 2
-
-    md_files = collect_markdown_files(source_dir, recursive=not args.no_recursive)
+    md_files, prune_root = resolve_markdown_sources(
+        args.source_dir,
+        args.source_file,
+        recursive=not args.no_recursive,
+    )
     if not md_files:
-        print(f"No .md files under {source_dir}", file=sys.stderr)
+        print(f"No .md files under {prune_root}", file=sys.stderr)
         return 0
 
     if not args.dry_run:
@@ -276,6 +315,7 @@ def main() -> int:
         process_markdown(
             md,
             dest_dir,
+            project_root,
             args.link_prefix,
             args.on_collision,
             args.dry_run,
@@ -284,7 +324,7 @@ def main() -> int:
         )
 
     if args.prune_empty_assets:
-        n = prune_empty_assets_dirs(source_dir, args.dry_run)
+        n = prune_empty_assets_dirs(prune_root, args.dry_run)
         print(f"{prefix}Empty assets dirs: {n}")
 
     print(

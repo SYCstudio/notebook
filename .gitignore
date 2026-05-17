@@ -42,3 +42,5 @@ replit.nix
 private/
 
 .vscode
+
+**__pycache__**
