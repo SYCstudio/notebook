@@ -104,3 +104,107 @@ Rust use the right arrow `->` to declare the return values of a function.
 
 ## Control Flow
 
+### if Expression
+
+An if expression allows to branch code according to the condition. Here is an example.
+
+```rust
+fn main() {
+	let number = 3; 
+	if number < 5 {
+		println!("condition was true"); 
+	} else { 
+		println!("condition was false"); 
+	}
+}
+```
+
+In Rust, the condition in the if expression must be a bool. Otherwise the compiler will report an error. Rust will not automatically convert non-Boolean types into a Boolean.    
+For example, we cannot use the `if number {...` in the upper example.  
+
+If you want to handle multiple if arms, Rust allows to use the `if {...} else if {...} else {...}` structure.
+
+The if is an expression, so we can use it on the right side of let. For example: `let x = if condition {5} else {6};`
+
+### Loop
+
+Rust supports three types of loops: `loop`, `while` and `for`.  
+`loop` is an infinitive loop. You can only use the `break` keyword within the loop to stop the loop execution.   
+The `continue` keyword is used to tell the program to skip over any remaining code in this iteration and start a new one.
+
+As same as if, the loop is also an expression which can return a value.  
+In Rust, we use the break to indicate the return values of a loop. Here is an example.
+
+```rust
+fn main() {
+	let mut counter = 0;
+	let result = loop {
+		counter += 1;
+		if counter == 10 {
+			break counter * 2;
+		}
+	};
+	println!("The result is {result}");
+}
+```
+
+Rust introduces labels to make handling control flow of multiple nested loops easier.  
+By default, both the `continue` and `break` keyword works for the innermost loop.  
+To make them work for the outer loop, we can use the loop labels. Here is an example.
+
+```rust
+fn main() {
+	let mut count = 0;
+	'counting_up: loop {
+		println!("count = {count}");
+		let mut remaining = 10;
+		loop {
+			println!("remaining = {remaining}");
+			if remaining == 9 {
+				break; // break the inner loop
+			}
+			if count == 2 {
+				break 'counting_up; // break the outer loop
+			}
+			remaining -= 1;
+		}
+		count += 1;
+	}  
+	println!("End count = {count}");
+}
+```
+
+The `while` loop is similar. See the following example.
+
+```rust
+fn main() {
+	let mut number = 3;
+	while number != 0 {
+		println!("{number}!");
+		number -= 1;
+	} 
+	println!("LIFTOFF!!!");
+}
+```
+
+The `for` loop in Rust allows a safety method to go through a set of elements. Here is an example.
+
+```rust
+fn main() {
+	let a = [10, 20, 30, 40, 50];
+	for element in a { 
+		println!("the value is: {element}");
+	}
+}
+```
+
+Or using the *Range* to count the number explicitly.
+
+```rust
+fn main() {
+	for number in (1..4).rev() {
+		println!("{number}!");
+	}
+	println!("LIFTOFF!!!");
+}
+```
