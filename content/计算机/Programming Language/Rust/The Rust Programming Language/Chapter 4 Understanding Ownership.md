@@ -110,7 +110,7 @@ fn calculate_length(s: &String) -> usize {
 
 The following diagram depicts the concept of *reference* in this example.
 
-![[assets/计算机/Programming-Language/Rust/The-Rust-Programming-Language/Chapter 4 Understanding Ownership-1779785528465.jpeg]]
+![[assets/计算机/Programming-Language/Rust/The-Rust-Programming-Language/Chapter_4_Understanding_Ownership-1779785528465.jpeg]]
 
 We call the action of creating a reference *borrowing*.  
 Like the variable, the reference is immutable by default.
