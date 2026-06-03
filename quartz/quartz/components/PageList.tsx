@@ -52,13 +52,43 @@ export function byDateAndAlphabeticalFolderFirst(cfg: GlobalConfiguration): Sort
   }
 }
 
+export function byTitleFolderFirst(
+    cfg: GlobalConfiguration,
+  ): SortFn {
+    return (f1, f2) => {
+      const f1IsFolder = isFolderPath(f1.slug ?? "")
+      const f2IsFolder = isFolderPath(f2.slug ?? "")
+  
+      if (f1IsFolder && !f2IsFolder) return -1
+      if (!f1IsFolder && f2IsFolder) return 1
+  
+      const f1Title =
+        f1.frontmatter?.title ??
+        f1.slug ??
+        ""
+  
+      const f2Title =
+        f2.frontmatter?.title ??
+        f2.slug ??
+        ""
+  
+      return f1Title.localeCompare(
+        f2Title,
+        "zh-CN",
+        {
+          numeric: true,
+        }
+      )
+    }
+  }
+
 type Props = {
   limit?: number
   sort?: SortFn
 } & QuartzComponentProps
 
 export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
-  const sorter = sort ?? byDateAndAlphabeticalFolderFirst(cfg)
+  const sorter = sort ?? byTitleFolderFirst(cfg)
   let list = allFiles.sort(sorter)
   if (limit) {
     list = list.slice(0, limit)
