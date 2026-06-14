@@ -44,3 +44,32 @@ sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
+
+## Docker 配置 Register 不走 https
+
+Docker 默认镜像应该走 https，但有时候内网并不太需要。可以配置其信任某些域名。
+
+在 `/etc/docker` 目录下创建 `daemon.json` 并写入以下类似内容。如果文件不存在，则直接创建（大部分 Linux 发行版没有该配置，需要手动创建）
+
+```json
+{
+  "insecure-registries": [
+    "registry.gitlab.pku.sycstudio.com"
+  ]
+}
+```
+
+然后重启 Docker 服务 `sudo systemctl restart docker`.  
+在命令行中输入 `sudo docker info | grep -A10 "Insecure Registries"` 应该能看到类似下面的内容
+
+```plain
+❯ sudo docker info | grep -A5 "Insecure Registries"
+ Insecure Registries:
+  registry.gitlab.pku.sycstudio.com
+  ::1/128
+  127.0.0.0/8
+ Live Restore Enabled: false
+ Firewall Backend: iptables
+```
+
+此时说明已经成功
