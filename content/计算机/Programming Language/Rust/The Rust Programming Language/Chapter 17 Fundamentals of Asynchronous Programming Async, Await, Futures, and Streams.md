@@ -174,3 +174,36 @@ This may results in *starving* if the block is big.
 We can use yield `trpl::yield_now().await` to let operations switch off making progress.  
 This is a form of *cooperative multitasking*, where each future has the power to determine when it hands over control via await points.  
 Note that `yield` is relatively inexpensive in some cases, but it is not free.
+
+## Streams: Futures in Sequence
+
+A stream is like an asynchronous form of iteration.  
+We can convert the iteration to steam. Here is an example.
+
+```rust
+extern crate trpl; // required for mdbook test
+
+use trpl::StreamExt;
+
+fn main() {
+    trpl::block_on(async {
+        let values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        // --snip--
+        let iter = values.iter().map(|n| n * 2);
+        let mut stream = trpl::stream_from_iter(iter);
+
+        while let Some(value) = stream.next().await {
+            println!("The value was: {value}");
+        }
+    });
+}
+```
+
+## Futures, Tasks, and Threads
+
+In many cases, the choice isn't threads or async but rather threads and async.  
+When thinking about which method to use, consider these rules of thumb
+
+1. If the work is very parallelizable (that is, CPU bound), such as processing  a bunch of data where each part can be processed separately, threads are a better choice.  
+2. If the work is very concurrent (that is, I/O bound), such as handling messages from a bunch of different sources that may come in at different intervals or different rates, async is a better choice.
+
