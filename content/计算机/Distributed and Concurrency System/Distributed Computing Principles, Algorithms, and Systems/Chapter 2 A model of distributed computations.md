@@ -1,4 +1,4 @@
-# A model of distributed computations
+# Chapter 2 A model of distributed computations
 
 ## A distributed program
 
