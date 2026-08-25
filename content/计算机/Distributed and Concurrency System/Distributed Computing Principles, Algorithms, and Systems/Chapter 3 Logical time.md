@@ -216,3 +216,81 @@ Time warp mechanism is an inverse. It assumes that every event is labeled with a
 
 Lamport's clocks are conservatively maintained that they never violate causality.  
 In virtual time, clocks are optimistically advanced. When a violation is detected, it takes corrective actions.
+
+### Time warp mechanism
+
+The message's timestamp is its virtual receive time. Each process must handle incoming messages in *timestamp* order.  
+However, some processes may get ahead in virtual time of other process. So it is possible when a message with an earlier timestamp will arrive later. We need the time warp mechanism to solve this problem.
+
+The time warp mechanism doesn't depend on the underlying computer architecture.  
+The message may not be delivered in FIFO order.
+
+There are two major parts: local control mechanism and global control mechanism.
+
+#### The local control mechanism
+
+Each process has a *local virtual clock* variable. There is no global virtual clock.  
+The virtual clock changes only between events, not change during an event.  
+All arriving messages at a process are stored in an input queue in increasing order of timestamp.  
+When process next message from the input queue, the process will increases its local virtual clock to the timestamp of the message.  
+When process send message, the virtual send time is copied from the sender's virtual clock.
+
+Ideally, the message in the queue will in increasing order. However, due to the different computation rates, the message may be in disorder.  
+When receiving a late message, the receiver rolls back to an earlier virtual time, cancelling all intermediate side effects and then executes forward again in the proper sequence.
+
+Rollback in a distributed system is complicated by the fact that the process that wants to rollback might have sent many messages to other processes, which in turn might have sent many messages to other processes, and so on, leading to deep side effects.  
+So messages must be effectively unsent and their side effects should be undone.  
+This is achieved efficiently by using *antimessages*.
+
+**Antimessages and the rollback mechanism**: For every message, there exists an antimessage that is the same in content but opposite in sign. Whenever a process sends a message, a copy of the message is transmitted to the receiver’s input queue and a negative copy (antimessage) is retained in the sender’s output queue for use in sender rollback.  
+Whenever a message and its antimessage appear in the same queue, regardless of the order in which they arrived, they immediately annihilate each other resulting in shortening of the queue by one message.  
+When receive a earlier message, the receiver need to rollback to a time earlier than the received message's timestamp. Then it sends the antimessages between the current state and earlier state. This will cause: 1. the antimessage will annihilate the message in the receiver's queue or 2. trigger the receiver rollback.
+
+#### Global control mechanism
+
+**Global virtual time (GVT)**: It is a property of an instantaneous global snapshot of system at real time *r*. It is the minimum of 1. all virtual times in all virtual clocks at time *r* and 2. the virtual send time of all messages that have been sent but have not yet been processed at time *r*.  
+The GVT never decrease even though there may be roll back.  
+Thus GVT can be viewed as a moving commitment horizon: any event with virtual time less than GVT cannot be rolled back and may be committed safely.
+
+It is not possible to get the real GVT at any time *r*. But we can estimate it with $O(d)$ time, where *d* is the delay required for one broadcast to all processors in the system.  
+The algorithm runs concurrently with the main computation and returns a value that is between the true GVT at the moment the algorithm starts and the true GVT at the moment of completion.   
+Thus it gives a slightly out-of-date value for GVT which is the best one can get.
+
+Time warp will periodically estimate GVT during execution. A higher frequency produces a faster response time and better space utilization but more processor time and network bandwidth.
+
+**Application of GVT**
+
+* Memory management and flow control: Information older than GVT is destroyed to avoid memory overheads.  
+* Normal termination detection: When GVT reaches `+inf`, all the processes will terminate.  
+* Error handling  
+* Snapshots and crash recovery: An entire snapshot of the system at virtual time *t* can be constructed by a procedure in which each process “snapshots” itself as it passes virtual time t in the forward direction and “unsnapshots” itself whenever it rolls back over virtual time *t*.
+
+## Physical clock synchronization: NTP
+
+### Definitions and terminology
+
+$C_a$ and $C_b$ are any two clocks.
+
+* **Time**: The time of clock in a machine $p$ is given by function $C_p(t)$, where $C_p(t)=t$ for a perfect clock.  
+* **Frequency**: Frequency is the rate at which a clock progresses. The frequency at time $t$ of clock $C_a$ is $C'_a(t)$ .  
+* **Offset**: Clock offset is the difference between the time reported by a clock and the *real time*. $C_a(t)-t$. The offset of clock $C_a$ relative to $C_b$ is $C_a(t)-C_b(t)$.  
+* **Skew**: The skew of a clock is the difference in the frequencies of the clock and the perfect clock. The skew of a clock $C_a$ relative to $C_b$ at time $t$ is $C'_a(t)-C'_b(t)$.  
+* If the skew is bounded by $\rho$, clock values are allowed to diverge at a rate in the rate of $1-\rho$ to $1+\rho$.  
+* **Drift**: The drift of clock $C_a$ is the second derivative of the clock value with respect to time $C''_a(t)$ .
+
+
+### Clock inaccuracies
+
+A clock is said to be working within $1-\rho \le \frac{dC}{dt} \le 1+\rho$ where constant $p$ is the maximum skew rate specified by the manufacturer.
+
+The Network Timer Protocol (NTP) uses the *offset delay estimation* method.  
+It involves a hierarchical tree of time server. The primary server at the root synchronizes with the UTC. The next level contains secondary severs, which is backup. At the lowest level has the clients.
+
+![[assets/计算机/Distributed-and-Concurrency-System/Distributed-Computing-Principles-Algorithms-and-Systems/Chapter_3_Logical_time-1787649762321.jpeg]]
+
+Let $a=T_1-T_3$ and $b=T_4-T_2$. We assume the network delay difference from $A$ to $B$ and from $B$ to $A$ is small. The clock offset $\theta$ and roundtrip delay $\delta$ of $B$ relative to $A$ at $T_4$ are approximately given by $\theta=\frac{a+b}{2}, \delta=a-b$.  
+Each NTP message includes the latest three timestamps $T1, T2, T3$, while $T_4$ is determined upon arrival.
+
+Here is the NTP protocol.
+
+![[assets/计算机/Distributed-and-Concurrency-System/Distributed-Computing-Principles-Algorithms-and-Systems/Chapter_3_Logical_time-1787650026335.jpeg]]

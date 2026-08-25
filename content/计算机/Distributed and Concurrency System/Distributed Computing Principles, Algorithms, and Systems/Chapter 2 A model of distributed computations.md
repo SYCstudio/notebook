@@ -95,9 +95,11 @@ Let $send(m) \le LS^x_i$ denote the fact that $\exists y, 1\le y\le x, e^y_i = s
 
 Let $SC^{x, y}_{ij}$ denote the state of a channel $C_{ij}$ defined as:
 
-$$SC_{ij}^{x,y}
+$$
+SC_{ij}^{x,y}
 =
-\{m_{ij}\mid send(m_{ij}) \le LS_i^x \land rec(m_{ij}) \nleq LS_j^y\}.$$
+\{m_{ij}\mid send(m_{ij}) \le LS_i^x \land rec(m_{ij}) \nleq LS_j^y\}
+$$
 
 Thus, channel state$SC^{x, y}_{ij}$  denotes all messages that $p_i$ sent up to event $e^x_i$ and  which process $p_j$ had not received until event $e^y_j$ .
 
